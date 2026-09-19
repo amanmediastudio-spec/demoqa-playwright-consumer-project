@@ -8,6 +8,7 @@ import org.testng.annotations.DataProvider;
         features = "src/test/resources/features",
         glue = {
                 "com.demoqa.playwright.stepdefinitions",
+                "com.automation.playwright.hooks",
                 "com.automation.hooks.playwright"
         },
         plugin = {
