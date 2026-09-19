@@ -1,0 +1,14 @@
+{
+  "standardUser": {
+    "fullName": "Parvez Aman",
+    "email": "parvez.playwright@example.com",
+    "currentAddress": "123 Tech Boulevard, Suite 400",
+    "permanentAddress": "456 Enterprise Way, Austin, TX"
+  },
+  "qaTester": {
+    "fullName": "Sophia Vance",
+    "email": "sophia.vance@example.com",
+    "currentAddress": "789 Innovation Parkway",
+    "permanentAddress": "101 Silicon Valley Road, CA"
+  }
+}

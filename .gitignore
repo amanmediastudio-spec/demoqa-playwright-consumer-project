@@ -1,0 +1,115 @@
+# ==========================================
+# Compiled Class files & Packaging
+# ==========================================
+*.class
+*.jar
+!/.repo/**
+*.war
+*.ear
+*.nar
+*.zip
+*.tar.gz
+*.rar
+
+# ==========================================
+# Maven Build Directory & Artifacts
+# ==========================================
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# ==========================================
+# Test Execution, Reports & Artifacts
+# ==========================================
+# Allure reports and results
+allure-results/
+allure-report/
+
+# TestNG & Surefire reports
+test-output/
+surefire-reports/
+
+# Playwright & Framework Artifacts
+screenshots/
+videos/
+traces/
+playwright-report/
+blob-report/
+
+# Logs & Framework Output
+logs/
+*.log
+*.log.*
+
+# ==========================================
+# IDE & Editor Configurations
+# ==========================================
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Eclipse
+.project
+.classpath
+.settings/
+.factorypath
+.springBeans
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# NetBeans
+nbproject/private/
+nbbuild/
+dist/
+nbproject/load-impl.xml
+
+# ==========================================
+# Crash Logs & JVM Dumps
+# ==========================================
+hs_err_pid*
+replay_pid*
+
+# ==========================================
+# Environment Variables & Secrets
+# ==========================================
+.env
+.env.*
+!.env.example
+
+# ==========================================
+# Operating System Files
+# ==========================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux / Temporary files
+*~
+*.swp
+*.swo
+*.tmp
+.fuse_hidden*
+.directory
+.Trash-*

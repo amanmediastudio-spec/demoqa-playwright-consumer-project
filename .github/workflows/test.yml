@@ -1,0 +1,117 @@
+name: HealQA Enterprise Cloud Test Runner
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+  workflow_dispatch:
+    # These inputs are populated automatically by HealQA when launched from the UI
+    inputs:
+      browser:
+        description: 'Target Browser (chrome, firefox, edge)'
+        required: false
+        default: 'chrome'
+      tags:
+        description: 'Cucumber Tag Filter (e.g. @smoke, @regression)'
+        required: false
+        default: ''
+      ai_provider:
+        description: 'AI Provider (gemini, openai, anthropic)'
+        required: false
+        default: 'gemini'
+      gemini_api_key:
+        description: 'Gemini API Key override from HealQA UI (optional)'
+        required: false
+        default: ''
+      openai_api_key:
+        description: 'OpenAI API Key override from HealQA UI (optional)'
+        required: false
+        default: ''
+      environment:
+        description: 'Target Environment (dev, qa, staging, prod)'
+        required: false
+        default: 'qa'
+      headless:
+        description: 'Run in headless mode (true/false)'
+        required: false
+        default: 'true'
+      thread_count:
+        description: 'Parallel Thread Count'
+        required: false
+        default: '2'
+      retry_count:
+        description: 'Failed Test Retry Count'
+        required: false
+        default: '1'
+      telemetry_url:
+        description: 'Telemetry Report Endpoint URL'
+        required: false
+        default: ''
+
+jobs:
+  test:
+    name: Run Automated Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    permissions:
+      contents: read
+      packages: read
+
+    env:
+      MAVEN_USERNAME: ${{ github.actor }}
+      MAVEN_PASSWORD: ${{ secrets.GH_PACKAGES_TOKEN || secrets.CORE_SDK_GITHUB_TOKEN || secrets.PAT_GITHUB || secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+          server-id: github
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+
+      - name: Install Playwright Browsers & OS Dependencies
+        run: mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
+
+      - name: Run Test Suite on Cloud Runner
+        env:
+          # Priority: UI Ephemeral Key -> GitHub Repository Secret
+          GEMINI_API_KEY: ${{ github.event.inputs.gemini_api_key || secrets.GEMINI_API_KEY }}
+          OPENAI_API_KEY: ${{ github.event.inputs.openai_api_key || secrets.OPENAI_API_KEY }}
+        run: |
+          TAG_FILTER="${{ github.event.inputs.tags }}"
+          TAG_ARG=()
+          if [ -n "$TAG_FILTER" ]; then
+            TAG_ARG=("-Dcucumber.filter.tags=${TAG_FILTER}")
+          fi
+
+          mvn clean test \
+            -Dbrowser="${{ github.event.inputs.browser || 'chromium' }}" \
+            "${TAG_ARG[@]}" \
+            -Dai.provider="${{ github.event.inputs.ai_provider || 'gemini' }}" \
+            -Dai.gemini.api.key="${{ github.event.inputs.gemini_api_key || secrets.GEMINI_API_KEY }}" \
+            -Dai.openai.api.key="${{ github.event.inputs.openai_api_key || secrets.OPENAI_API_KEY }}" \
+            -Denv="${{ github.event.inputs.environment || 'qa' }}" \
+            -Dheadless="${{ github.event.inputs.headless || 'true' }}" \
+            -Dthread.count="${{ github.event.inputs.thread_count || '2' }}" \
+            -Dretry.count="${{ github.event.inputs.retry_count || '1' }}" \
+            -Dexecution.mode=local \
+            -Dai.telemetry.url="${{ github.event.inputs.telemetry_url || secrets.PLATFORM_TELEMETRY_URL || 'https://healqa.in/api/v1/telemetry/report' }}"
+
+      - name: Archive Test Execution Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-execution-reports
+          path: |
+            target/surefire-reports/
+            target/cucumber-reports/
+            target/screenshots/
+          retention-days: 14
