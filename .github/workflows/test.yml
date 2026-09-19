@@ -126,6 +126,7 @@ jobs:
 
       - name: Archive Test Execution Reports
         if: always()
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
           name: test-execution-reports
