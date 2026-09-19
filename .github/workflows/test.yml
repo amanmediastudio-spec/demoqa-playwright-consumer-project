@@ -100,9 +100,10 @@ jobs:
           HEALQA_API_URL: ${{ github.event.inputs.healqa_api_url || secrets.HEALQA_API_URL }}
           HEALQA_REALTIME_ENABLED: ${{ github.event.inputs.healqa_realtime_enabled || 'false' }}
           HEALQA_API_TOKEN: ${{ github.event.inputs.healqa_api_token || secrets.HEALQA_API_TOKEN }}
-          HEALQA_RUN_ID: ${{ github.event.inputs.healqa_run_id || github.event.inputs.healqa_execution_id || secrets.HEALQA_RUN_ID }}
-          HEALQA_EXECUTION_ID: ${{ github.event.inputs.healqa_execution_id || github.event.inputs.healqa_run_id || secrets.HEALQA_RUN_ID }}
+          HEALQA_RUN_ID: ${{ github.event.inputs.healqa_run_id || github.event.inputs.healqa_execution_id || '' }}
+          HEALQA_EXECUTION_ID: ${{ github.event.inputs.healqa_execution_id || github.event.inputs.healqa_run_id || '' }}
           HEALQA_EXECUTION_SOURCE: GITHUB_ACTIONS
+          PLATFORM_TELEMETRY_URL: ${{ github.event.inputs.telemetry_url || secrets.PLATFORM_TELEMETRY_URL || 'HealQA Enterprise Automation Pipeline' }}
           MAVEN_ARGS: ${{ github.event.inputs.maven_args }}
         run: |
           if [ -n "$MAVEN_ARGS" ]; then
@@ -114,14 +115,14 @@ jobs:
               -Dbrowser="${{ github.event.inputs.browser || 'chrome' }}" \
               -Dcucumber.filter.tags="${{ github.event.inputs.tags }}" \
               -Dai.provider="${{ github.event.inputs.ai_provider || 'gemini' }}" \
-              -Dai.gemini.api.key="${{ github.event.inputs.gemini_api_key || secrets.GEMINI_API_KEY }}" \
-              -Dai.openai.api.key="${{ github.event.inputs.openai_api_key || secrets.OPENAI_API_KEY }}" \
+              -Dai.gemini.api.key="$GEMINI_API_KEY" \
+              -Dai.openai.api.key="$OPENAI_API_KEY" \
               -Denv="${{ github.event.inputs.environment || 'qa' }}" \
               -Dheadless="${{ github.event.inputs.headless || 'true' }}" \
               -Dthread.count="${{ github.event.inputs.thread_count || '2' }}" \
               -Dretry.count="${{ github.event.inputs.retry_count || '1' }}" \
               -Dexecution.mode=local \
-              -Dai.telemetry.url="${{ github.event.inputs.telemetry_url || secrets.PLATFORM_TELEMETRY_URL || 'HealQA Enterprise Automation Pipeline' }}"
+              -Dai.telemetry.url="$PLATFORM_TELEMETRY_URL"
           fi
 
       - name: Archive Test Execution Reports
