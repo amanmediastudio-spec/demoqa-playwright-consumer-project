@@ -3,17 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.automation</groupId>
-    <artifactId>ai-automation-core</artifactId>
+    <artifactId>ai-automation-sdk</artifactId>
     <version>1.2.0</version>
                     <packaging>jar</packaging>
-                    <name>HealQA AI Automation Framework - Core Engine SDK</name>
+                    <name>HealQA AI Automation Framework - Open Client SDK</name>
 
                     <dependencies>
-                        <dependency>
-                            <groupId>com.automation</groupId>
-                            <artifactId>ai-automation-sdk</artifactId>
-                            <version>1.2.0</version>
-                        </dependency>
                         <dependency>
                             <groupId>org.seleniumhq.selenium</groupId>
                             <artifactId>selenium-java</artifactId>
@@ -73,21 +68,6 @@
                             <groupId>com.fasterxml.jackson.core</groupId>
                             <artifactId>jackson-databind</artifactId>
                             <version>2.17.1</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>com.h2database</groupId>
-                            <artifactId>h2</artifactId>
-                            <version>2.2.224</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.jcodec</groupId>
-                            <artifactId>jcodec</artifactId>
-                            <version>0.2.5</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.jcodec</groupId>
-                            <artifactId>jcodec-javase</artifactId>
-                            <version>0.2.5</version>
                         </dependency>
                     </dependencies>
                 </project>
