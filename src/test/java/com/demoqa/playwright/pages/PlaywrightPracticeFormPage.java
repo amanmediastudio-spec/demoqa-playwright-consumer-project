@@ -34,7 +34,7 @@ public class PlaywrightPracticeFormPage extends PlaywrightBasePage {
     protected void initElements() {
         // Diverse native Playwright locator strategies:
         firstNameInput = register("firstNameInput", "First name text input", "input#firstName"); // CSS ID
-        lastNameInput = register("lastNameInput", "Last name text input", "placeholder=\"Last Name\""); // Playwright Placeholder Engine
+        lastNameInput = register("lastNameInput", "Last name text input", "#lastName"); // Playwright Placeholder Engine
         userEmailInput = register("userEmailInput", "User email text input", "//input[@id='userEmail']"); // XPath Attribute
         userNumberInput = register("userNumberInput", "Mobile number text input", "input#userNumber"); // CSS ID
         dateOfBirthInput = register("dateOfBirthInput", "Date of birth input field", "#dateOfBirthInput"); // CSS ID
