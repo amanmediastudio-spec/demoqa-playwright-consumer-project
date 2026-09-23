@@ -106,7 +106,7 @@ jobs:
           PLATFORM_TELEMETRY_URL: ${{ github.event.inputs.telemetry_url || secrets.PLATFORM_TELEMETRY_URL || 'HealQA Enterprise Automation Pipeline' }}
           MAVEN_ARGS: ${{ github.event.inputs.maven_args }}
         run: |
-          rm -rf ~/.m2/repository/com/automation/ai-automation-core
+          rm -rf ~/.m2/repository/com/automation
           if [ -n "$MAVEN_ARGS" ]; then
             eval "mvn clean test $MAVEN_ARGS"
           else
