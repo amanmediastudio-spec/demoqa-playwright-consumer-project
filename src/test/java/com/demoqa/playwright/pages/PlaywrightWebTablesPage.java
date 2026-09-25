@@ -32,7 +32,7 @@ public class PlaywrightWebTablesPage extends PlaywrightBasePage {
         searchBox = register("searchBox", "Table search text field", "input#searchBox"); // CSS ID
         addNewRecordButton = register("addNewRecordButton", "Add new employee record button", "button:has-text('Add')"); // Playwright Pseudo-Class (:has-text)
         tableContainer = register("tableContainer", "React Table container", "div.rt-table"); // CSS Class
-        firstNameInput = register("firstNameInput", "Registration first name input", "placeholder=\"First Name\""); // Playwright Placeholder Engine
+        firstNameInput = register("firstNameInput", "Registration first name input", "#firstName"); // Playwright Placeholder Engine
         lastNameInput = register("lastNameInput", "Registration last name input", "//input[@id='lastName']"); // XPath Attribute
         userEmailInput = register("userEmailInput", "Registration email input", "#userForm >> #userEmail"); // Playwright Chained Combinator (>>)
         ageInput = register("ageInput", "Registration age input", "#age"); // CSS ID
