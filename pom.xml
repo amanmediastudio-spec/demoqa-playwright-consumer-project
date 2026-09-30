@@ -15,7 +15,6 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <thread.count>2</thread.count>
-        <allure.version>2.27.0</allure.version>
         <aspectj.version>1.9.22</aspectj.version>
     </properties>
 
@@ -72,13 +71,6 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>7.9.0</version>
-        </dependency>
-
-        <!-- Allure Cucumber Adapter -->
-        <dependency>
-            <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-cucumber7-jvm</artifactId>
-            <version>${allure.version}</version>
         </dependency>
     </dependencies>
 
