@@ -13,8 +13,7 @@ import org.testng.annotations.DataProvider;
         plugin = {
                 "pretty",
                 "html:target/cucumber-reports/playwright-report.html",
-                "json:target/cucumber-reports/playwright-report.json",
-                "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"
+                "json:target/cucumber-reports/playwright-report.json"
         }
 )
 public class PlaywrightTestRunner extends AbstractTestNGCucumberTests {
